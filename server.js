@@ -5,6 +5,16 @@ app.get('/', function (req, res) {
     res.sendFile('/index.html')
 });
 
+app.use('/store', function(req, res, next){
+    console.log('Hej, jestem pośrednikiem między tobą a sklepem!');
+    next();
+});
+
+app.get('/store', function (req, res) {
+    res.send('jestem sklepem');
+});
+
+
 app.get('/userform', function (req, res) {
     const response = {
         first_name: req.query.first_name,
@@ -12,6 +22,8 @@ app.get('/userform', function (req, res) {
     };
     res.end(JSON.stringify(response));
 });
+
+
 
 var server = app.listen(3000, 'localhost', function() {
     var host = server.address().address;
